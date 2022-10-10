@@ -1,49 +1,44 @@
 export type InputValue = {
   name: string,
-  value: Value,
+  staticValues: StaticValues,
   unit: string
 }
 
-type Value = {
+type StaticValues = {
   min: string,
   max: string,
-  current: number
 }
 
 export const defaultInputsValue: InputValue[] = [
   {
     name: "perspective",
-    value: {
+    staticValues: {
       min: "0",
       max: "999",
-      current: 0,
     },
     unit: "px",
   },
   {
     name: "rotateX",
-    value: {
+    staticValues: {
       min: "-180",
       max: "180",
-      current: 0,
     },
     unit: "deg",
   },
   {
     name: "rotateY",
-    value: {
+    staticValues: {
       min: "-180",
       max: "180",
-      current: 0,
     },
     unit: "deg",
   },
   {
     name: "rotateZ",
-    value: {
+    staticValues: {
       min: "-180",
       max: "180",
-      current: 0,
     },
     unit: "deg",
   },

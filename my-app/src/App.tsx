@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import _ from "lodash"; // if some problems with reset values use lodash to deep cloning defaultInputsValue instead just getting reference
 import { defaultInputsValue, InputValue } from "../src/consts/index";
 import RangeInput from "./components/RangeInput";
 
-function App() {
-  const [perspective, setPerspective] = useState<InputValue>(
-    defaultInputsValue[0]
-  );
-  const [rotateX, setRotateX] = useState<InputValue>(defaultInputsValue[1]);
-  const [rotateY, setRotateY] = useState<InputValue>(defaultInputsValue[2]);
-  const [rotateZ, setRotateZ] = useState<InputValue>(defaultInputsValue[3]);
+const App:React.FC = () => {
+  const [perspective, setPerspective] = useState<number>(0);
+  const [rotateX, setRotateX] = useState<number>(0);
+  const [rotateY, setRotateY] = useState<number>(0);
+  const [rotateZ, setRotateZ] = useState<number>(0);
+
 
   return (
     <div className="App">
@@ -18,21 +16,37 @@ function App() {
         <section className="settings">
           <div className="settings-container">
             <RangeInput
-              name={perspective.name}
-              value={perspective.value}
-              unit={perspective.unit}
+              value={perspective}
+              setValue={setPerspective}
+              name={defaultInputsValue[0].name}
+              staticValues={defaultInputsValue[0].staticValues}
+              unit={defaultInputsValue[0].unit}
             />
-            {/* <label>perspective: 0px;</label>
-            <input type="range" min="0" max="999" /> */}
 
-            <label>rotateX: 0deg; </label>
-            <input type="range" min="-180" max="180" />
+            <RangeInput
+              value={rotateX}
+              setValue={setRotateX}
+              name={defaultInputsValue[1].name}
+              staticValues={defaultInputsValue[1].staticValues}
+              unit={defaultInputsValue[1].unit}
+            />
 
-            <label>rotateY: 0deg; </label>
-            <input type="range" min="-180" max="180" />
+            <RangeInput
+              value={rotateY}
+              setValue={setRotateY}
+              name={defaultInputsValue[2].name}
+              staticValues={defaultInputsValue[2].staticValues}
+              unit={defaultInputsValue[2].unit}
+            />
 
-            <label>rotateZ: 0deg; </label>
-            <input type="range" min="-180" max="180" />
+            <RangeInput
+              value={rotateZ}
+              setValue={setRotateZ}
+              name={defaultInputsValue[3].name}
+              staticValues={defaultInputsValue[3].staticValues}
+              unit={defaultInputsValue[3].unit}
+            />
+
             <button type="button">Reset</button>
             <button type="button">Copy</button>
           </div>
