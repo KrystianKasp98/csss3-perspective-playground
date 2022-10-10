@@ -3,25 +3,40 @@ import { defaultInputsValue} from "../src/consts/index";
 import RangeInput from "./components/RangeInput";
 
 type BoxStyle = {
-  transform: string
+  transform: string,
 };
 
 const App:React.FC = () => {
-  const [perspective, setPerspective] = useState<number>(0);
+  const [perspective, setPerspective] = useState<number>(150);
   const [rotateX, setRotateX] = useState<number>(0);
   const [rotateY, setRotateY] = useState<number>(0);
   const [rotateZ, setRotateZ] = useState<number>(0);
-  const [boxStyle, setBoxStyle] = useState<BoxStyle>({ transform: "" });
-  
+  const [boxStyle, setBoxStyle] = useState<BoxStyle>({transform: "",});
+
   useEffect(() => {
     setBoxStyle({
       transform: `
-        perspective(${perspective}px)
-        rotateX(${rotateX}deg) 
-        rotateY(${rotateY}deg) 
-        rotateZ(${rotateZ}deg)`,
+      perspective(${perspective}px)
+      rotateX(${rotateX}deg) 
+      rotateY(${rotateY}deg) 
+      rotateZ(${rotateZ}deg)
+      `,
     });
-  },[perspective, rotateX, rotateY, rotateZ])
+  }, [perspective, rotateX, rotateY, rotateZ]);
+
+  const handleReset = ():void => {
+    setPerspective(150);
+    setRotateX(0);
+    setRotateY(0);
+    setRotateZ(0);
+  }
+
+  const handleCopy = (): void => {
+    const text = `transform: ${boxStyle.transform.replace(/\s{2,}/g, " ").trim()};`;
+    navigator.clipboard.writeText(text);
+    alert(`coppied to clipboard: transform: ${text}`);
+
+  }
 
   return (
     <div className="App">
@@ -61,8 +76,8 @@ const App:React.FC = () => {
               unit={defaultInputsValue[3].unit}
             />
 
-            <button type="button">Reset</button>
-            <button type="button">Copy</button>
+            <button type="button" onClick={handleReset}>Reset</button>
+            <button type="button" onClick={handleCopy}>Copy</button>
           </div>
         </section>
         <section className="output">
