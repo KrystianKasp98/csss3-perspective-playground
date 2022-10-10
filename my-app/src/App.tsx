@@ -1,13 +1,27 @@
-import React, { useState } from "react";
-import { defaultInputsValue, InputValue } from "../src/consts/index";
+import React, { useState,useEffect } from "react";
+import { defaultInputsValue} from "../src/consts/index";
 import RangeInput from "./components/RangeInput";
+
+type BoxStyle = {
+  transform: string
+};
 
 const App:React.FC = () => {
   const [perspective, setPerspective] = useState<number>(0);
   const [rotateX, setRotateX] = useState<number>(0);
   const [rotateY, setRotateY] = useState<number>(0);
   const [rotateZ, setRotateZ] = useState<number>(0);
-
+  const [boxStyle, setBoxStyle] = useState<BoxStyle>({ transform: "" });
+  
+  useEffect(() => {
+    setBoxStyle({
+      transform: `
+        perspective(${perspective}px)
+        rotateX(${rotateX}deg) 
+        rotateY(${rotateY}deg) 
+        rotateZ(${rotateZ}deg)`,
+    });
+  },[perspective, rotateX, rotateY, rotateZ])
 
   return (
     <div className="App">
@@ -53,7 +67,7 @@ const App:React.FC = () => {
         </section>
         <section className="output">
           <div className="box-container">
-            <div className="box"></div>
+            <div className="box" style={boxStyle}></div>
           </div>
         </section>
       </main>
